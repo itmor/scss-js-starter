@@ -1,0 +1,31 @@
+{
+  "name": "scss-js-starter",
+  "version": "1.0.0",
+  "description": "SCSS + JS + HTML starter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itmor/scss-js-starter.git"
+  },
+  "keywords": [
+    "scss",
+    "template",
+    "gulp",
+    "starter"
+  ],
+  "author": "itmor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/itmor/scss-js-starter/issues"
+  },
+  "homepage": "https://github.com/itmor/scss-js-starter#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-sass": "^4.1.0",
+    "del": "^6.0.0",
+    "gulp-uglify-es": "^2.0.0"
+  }
+}
