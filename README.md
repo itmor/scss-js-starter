@@ -8,4 +8,4 @@ start compiler command
 npm i
 npm run start
 ```
-![alt text](https://i.ibb.co/9pyrQ8c/ezgif-com-gif-maker.png)
+![alt text](https://i.ibb.co/DDCKJyj/Pbqm.gif)
