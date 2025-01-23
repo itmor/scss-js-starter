@@ -1,37 +1,48 @@
-const { src, dest, series, watch } = require('gulp');
-const sass = require('gulp-sass');
-const uglify = require('gulp-uglify-es').default;
-const cleanCSS = require('gulp-clean-css');
-const del = require('del');
+import { src, dest, series, watch } from 'gulp';
+import { deleteSync }  from "del";
+import terser from 'gulp-terser';
+import cleanCSS from 'gulp-clean-css';
+import babel from 'gulp-babel';
+import gulpSass from 'gulp-sass';
+import sassCompiler from 'sass';
 
-function scssTask() {
+const sass = gulpSass(sassCompiler);  
+
+
+const scssWorkPath = 'src/scss/*.scss';
+const jsWorkPath = 'src/js/*.js';
+const cssBuildPath = 'build/css';
+const jsBuildPath = 'build/js'
+
+const scssTask = () => {
   cleanCss();
 
-  return src('src/scss/*.scss')
+  return src(scssWorkPath)
     .pipe(sass().on('error', sass.logError))
-    .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(dest('build/css'));
+    .pipe(cleanCSS({ compatibility: 'ie8' }))
+    .pipe(dest(cssBuildPath));
 }
 
-function jsTask() {
+const jsTask = () => {
   cleanJs();
 
-  return src('src/js/*.js')
-    .pipe(uglify())
+  return src(jsWorkPath)
+    .pipe(babel())
+    .pipe(terser())
     .pipe(dest('build/js'));
 }
 
-function watcher() {
-  watch('src/scss/*.scss', scssTask);
-  watch('src/js/*.js', jsTask);
-};
+const watcher = () => {
+  watch(scssWorkPath, scssTask);
+  watch(jsWorkPath, jsTask);
+}
 
-function cleanJs() {
-  del.sync('build/js/**');
-};
+const cleanJs = () => {
+  deleteSync(jsBuildPath + '/**');
+}
 
-function cleanCss() {
-  del.sync('build/css/**');
-};
+const cleanCss = () => {
+  deleteSync(cssBuildPath + '/**');
+}
 
-exports.default = series(jsTask, scssTask, watcher);
+export default series(jsTask, scssTask, watcher);

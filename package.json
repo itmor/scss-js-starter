@@ -1,32 +1,20 @@
 {
-  "name": "scss-js-starter",
-  "version": "1.0.0",
-  "description": "SCSS + JS + HTML starter",
-  "main": "index.js",
+  "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
+    "babel-core": "^6.26.3",
+    "del": "^8.0.0",
+    "gulp": "^5.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-sass": "^6.0.0",
+    "gulp-terser": "^2.1.0"
+  },
+  "type": "module",
+  "main": "gulpfile.js",
   "scripts": {
     "start": "gulp"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/itmor/scss-js-starter.git"
-  },
-  "keywords": [
-    "scss",
-    "template",
-    "gulp",
-    "starter"
-  ],
-  "author": "itmor",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/itmor/scss-js-starter/issues"
-  },
-  "homepage": "https://github.com/itmor/scss-js-starter#readme",
-  "devDependencies": {
-    "del": "^6.0.0",
-    "gulp": "^4.0.2",
-    "gulp-sass": "^4.1.0",
-    "gulp-uglify-es": "^2.0.0",
-    "gulp-clean-css": "^4.3.0"
+  "dependencies": {
+    "sass": "^1.83.4"
   }
 }
