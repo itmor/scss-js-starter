@@ -4,7 +4,7 @@ import terser from 'gulp-terser';
 import cleanCSS from 'gulp-clean-css';
 import babel from 'gulp-babel';
 import gulpSass from 'gulp-sass';
-import sassCompiler from 'sass';
+import * as sassCompiler from 'sass';
 
 const sass = gulpSass(sassCompiler);  
 
