@@ -1,22 +1,19 @@
 import { src, dest, series, watch } from 'gulp';
-import { deleteSync }  from "del";
+import { deleteAsync } from 'del';
 import terser from 'gulp-terser';
 import cleanCSS from 'gulp-clean-css';
 import babel from 'gulp-babel';
 import gulpSass from 'gulp-sass';
 import * as sassCompiler from 'sass';
 
-const sass = gulpSass(sassCompiler);  
+const sass = gulpSass(sassCompiler);
 
-
-const scssWorkPath = 'src/scss/*.scss';
-const jsWorkPath = 'src/js/*.js';
+const scssWorkPath = 'src/scss/**/*.scss';
+const jsWorkPath = 'src/js/**/*.js';
 const cssBuildPath = 'build/css';
-const jsBuildPath = 'build/js'
+const jsBuildPath = 'build/js';
 
 const scssTask = () => {
-  cleanCss();
-
   return src(scssWorkPath)
     .pipe(sass().on('error', sass.logError))
     .pipe(cleanCSS({ compatibility: 'ie8' }))
@@ -24,25 +21,23 @@ const scssTask = () => {
 }
 
 const jsTask = () => {
-  cleanJs();
-
   return src(jsWorkPath)
     .pipe(babel())
     .pipe(terser())
-    .pipe(dest('build/js'));
-}
-
-const watcher = () => {
-  watch(scssWorkPath, scssTask);
-  watch(jsWorkPath, jsTask);
+    .pipe(dest(jsBuildPath));
 }
 
 const cleanJs = () => {
-  deleteSync(jsBuildPath + '/**');
+  return deleteAsync([jsBuildPath + '/**']);
 }
 
 const cleanCss = () => {
-  deleteSync(cssBuildPath + '/**');
+  return deleteAsync([cssBuildPath + '/**']);
 }
 
-export default series(jsTask, scssTask, watcher);
+const watcher = () => {
+  watch(scssWorkPath, { ignoreInitial: false }, scssTask);
+  watch(jsWorkPath, { ignoreInitial: false }, jsTask);
+}
+
+export default series(cleanJs, cleanCss, jsTask, scssTask, watcher);
